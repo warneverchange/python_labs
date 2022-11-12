@@ -1,9 +1,9 @@
-from Point import *
+from Point2D import *
 import math
 
 
 class Vector:
-    _coordinates: Point
+    _coordinates: Point2D
 
     @property
     def x(self):
@@ -25,15 +25,15 @@ class Vector:
             raise TypeError("Argument must be an instance of Vector")
         self._coordinates.y = value
 
-    def __init__(self, *args: Point):
+    def __init__(self, *args: Point2D):
         if len(args) == 1:
-            if not isinstance(args[0], Point):
+            if not isinstance(args[0], Point2D):
                 raise TypeError("Argument must have argument of Point type")
-            self._coordinates = Point(args[0].x, args[0].y)
+            self._coordinates = Point2D(args[0].x, args[0].y)
         elif len(args) == 2:
-            if not (isinstance(args[0], Point) and isinstance(args[1], Point)):
+            if not (isinstance(args[0], Point2D) and isinstance(args[1], Point2D)):
                 raise TypeError("Argument ")
-            self._coordinates = Point(args[1].x - args[0].x, args[1].y - args[0].y)
+            self._coordinates = Point2D(args[1].x - args[0].x, args[1].y - args[0].y)
         else:
             raise AttributeError("Constructor of vector takes only 1 or 2 arguments of \'Point\' type")
 
@@ -48,23 +48,23 @@ class Vector:
             raise TypeError("Argument must be instance of vector")
         return self.length() * math.cos(angel_between(self, vector))
 
-    def __add__(self, other) -> Point:  # find info about set Vector as other type
+    def __add__(self, other) -> Point2D:  # find info about set Vector as other type
         if not isinstance(other, Vector):
             raise TypeError("Argument must be instance of vector")
-        return Point(self._coordinates.x + other._coordinates.x, self._coordinates.y + other._coordinates.y)
+        return Point2D(self._coordinates.x + other._coordinates.x, self._coordinates.y + other._coordinates.y)
 
-    def __sub__(self, other) -> Point:
+    def __sub__(self, other) -> Point2D:
         if not isinstance(other, Vector):
             raise TypeError("Argument must be instance of vector")
-        return Point(self._coordinates.x - other._coordinates.x, self._coordinates.y - other._coordinates.y)
+        return Point2D(self._coordinates.x - other._coordinates.x, self._coordinates.y - other._coordinates.y)
 
-    def __mul__(self, other) -> Point:
+    def __mul__(self, other) -> Point2D:
         if not isinstance(other, float):
             raise TypeError("Argument must be instance of float")
-        return Point(self._coordinates.x * other, self._coordinates.y * other)
+        return Point2D(self._coordinates.x * other, self._coordinates.y * other)
 
-    def __invert__(self) -> Point:
-        return Point(-self._coordinates.x, -self._coordinates.y)
+    def __invert__(self) -> Point2D:
+        return Point2D(-self._coordinates.x, -self._coordinates.y)
 
 
 def dot_product(v1: Vector, v2: Vector) -> float:

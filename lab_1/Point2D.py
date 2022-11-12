@@ -1,4 +1,4 @@
-class Point:
+class Point2D:
     _x = 0.0
     _y = 0.0
 
@@ -8,7 +8,7 @@ class Point:
             self._y = y
 
     def __eq__(self, o: object) -> bool:
-        if isinstance(o, Point):
+        if isinstance(o, Point2D):
             return o._x == self._x and o._y == self._y
         else:
             raise TypeError("The argument must be an instance of the point class or inherit it")
@@ -35,6 +35,3 @@ class Point:
         if not isinstance(_x, float):
             raise TypeError("Abscissa must be float value")
         self._x = _x
-
-
-

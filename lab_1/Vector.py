@@ -1,4 +1,5 @@
 from Point import *
+import math
 
 
 class Vector:
@@ -17,22 +18,25 @@ class Vector:
             raise AttributeError("Constructor of vector takes only 1 or 2 arguments of \'Point\' type")
 
     def __str__(self) -> str:
-        return str(self._coordinates)
+        return f"{self._coordinates.x} * i + {self._coordinates.y} * j"
 
-    def __add__(self, other):  # find info about set Vector as other type
+    def length(self) -> float:
+        return math.sqrt(self._coordinates.x ** 2 + self._coordinates.y ** 2)
+
+    def __add__(self, other) -> Point:  # find info about set Vector as other type
         if not isinstance(other, Vector):
             raise TypeError("Argument must be instance of vector")
         return Point(self._coordinates.x + other._coordinates.x, self._coordinates.y + other._coordinates.y)
 
-    def __sub__(self, other):
+    def __sub__(self, other) -> Point:
         if not isinstance(other, Vector):
             raise TypeError("Argument must be instance of vector")
         return Point(self._coordinates.x - other._coordinates.x, self._coordinates.y - other._coordinates.y)
 
-    def __mul__(self, other):
+    def __mul__(self, other) -> Point:
         if not isinstance(other, float):
             raise TypeError("Argument must be instance of float")
         return Point(self._coordinates.x * other, self._coordinates.y * other)
 
-    def __invert__(self):
+    def __invert__(self) -> Point:
         return Point(-self._coordinates.x, -self._coordinates.y)

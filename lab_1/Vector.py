@@ -5,6 +5,26 @@ import math
 class Vector:
     _coordinates: Point
 
+    @property
+    def x(self):
+        return self._coordinates.x
+
+    @x.setter
+    def x(self, value):
+        if not isinstance(value, Vector):
+            raise TypeError("Argument must be an instance of Vector")
+        self._coordinates.x = value
+
+    @property
+    def y(self):
+        return self._coordinates.y
+
+    @y.setter
+    def y(self, value):
+        if not isinstance(value, Vector):
+            raise TypeError("Argument must be an instance of Vector")
+        self._coordinates.y = value
+
     def __init__(self, *args: Point):
         if len(args) == 1:
             if not isinstance(args[0], Point):
@@ -23,6 +43,11 @@ class Vector:
     def length(self) -> float:
         return math.sqrt(self._coordinates.x ** 2 + self._coordinates.y ** 2)
 
+    def project(self, vector) -> float:
+        if not isinstance(vector, Vector):
+            raise TypeError("Argument must be instance of vector")
+        return self.length() * math.cos(angel_between(self, vector))
+
     def __add__(self, other) -> Point:  # find info about set Vector as other type
         if not isinstance(other, Vector):
             raise TypeError("Argument must be instance of vector")
@@ -40,3 +65,15 @@ class Vector:
 
     def __invert__(self) -> Point:
         return Point(-self._coordinates.x, -self._coordinates.y)
+
+
+def dot_product(v1: Vector, v2: Vector) -> float:
+    if not (isinstance(v1, Vector) and isinstance(v2, Vector)):
+        raise TypeError("Arguments must be an instance of Vector")
+    return v1.x * v2.x + v1.y * v2.y
+
+
+def angel_between(v1: Vector, v2: Vector) -> float:
+    if not (isinstance(v1, Vector) and isinstance(v2, Vector)):
+        raise TypeError("Arguments must be an instance of Vector")
+    return math.acos(dot_product(v1, v2) / (v1.length() * v2.length()))

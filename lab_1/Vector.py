@@ -19,3 +19,20 @@ class Vector:
     def __str__(self) -> str:
         return str(self._coordinates)
 
+    def __add__(self, other):  # find info about set Vector as other type
+        if not isinstance(other, Vector):
+            raise TypeError("Argument must be instance of vector")
+        return Point(self._coordinates.x + other._coordinates.x, self._coordinates.y + other._coordinates.y)
+
+    def __sub__(self, other):
+        if not isinstance(other, Vector):
+            raise TypeError("Argument must be instance of vector")
+        return Point(self._coordinates.x - other._coordinates.x, self._coordinates.y - other._coordinates.y)
+
+    def __mul__(self, other):
+        if not isinstance(other, float):
+            raise TypeError("Argument must be instance of float")
+        return Point(self._coordinates.x * other, self._coordinates.y * other)
+
+    def __invert__(self):
+        return Point(-self._coordinates.x, -self._coordinates.y)

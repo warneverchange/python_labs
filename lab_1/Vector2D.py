@@ -2,7 +2,7 @@ from Point2D import *
 import math
 
 
-class Vector:
+class Vector2D:
     _coordinates: Point2D
 
     @property
@@ -11,7 +11,7 @@ class Vector:
 
     @x.setter
     def x(self, value):
-        if not isinstance(value, Vector):
+        if not isinstance(value, Vector2D):
             raise TypeError("Argument must be an instance of Vector")
         self._coordinates.x = value
 
@@ -21,7 +21,7 @@ class Vector:
 
     @y.setter
     def y(self, value):
-        if not isinstance(value, Vector):
+        if not isinstance(value, Vector2D):
             raise TypeError("Argument must be an instance of Vector")
         self._coordinates.y = value
 
@@ -44,17 +44,22 @@ class Vector:
         return math.sqrt(self._coordinates.x ** 2 + self._coordinates.y ** 2)
 
     def project(self, vector) -> float:
-        if not isinstance(vector, Vector):
+        if not isinstance(vector, Vector2D):
             raise TypeError("Argument must be instance of vector")
         return self.length() * math.cos(angel_between(self, vector))
 
+    def dot_product(self, vector) -> float:
+        if not isinstance(vector, Vector2D):
+            raise TypeError("Argument must be instance of vector")
+        return self.x * vector.x + self.y * vector.y
+
     def __add__(self, other) -> Point2D:  # find info about set Vector as other type
-        if not isinstance(other, Vector):
+        if not isinstance(other, Vector2D):
             raise TypeError("Argument must be instance of vector")
         return Point2D(self._coordinates.x + other._coordinates.x, self._coordinates.y + other._coordinates.y)
 
     def __sub__(self, other) -> Point2D:
-        if not isinstance(other, Vector):
+        if not isinstance(other, Vector2D):
             raise TypeError("Argument must be instance of vector")
         return Point2D(self._coordinates.x - other._coordinates.x, self._coordinates.y - other._coordinates.y)
 
@@ -67,13 +72,13 @@ class Vector:
         return Point2D(-self._coordinates.x, -self._coordinates.y)
 
 
-def dot_product(v1: Vector, v2: Vector) -> float:
-    if not (isinstance(v1, Vector) and isinstance(v2, Vector)):
+def dot_product(v1: Vector2D, v2: Vector2D) -> float:
+    if not (isinstance(v1, Vector2D) and isinstance(v2, Vector2D)):
         raise TypeError("Arguments must be an instance of Vector")
-    return v1.x * v2.x + v1.y * v2.y
+    return v1.dot_product(v2)
 
 
-def angel_between(v1: Vector, v2: Vector) -> float:
-    if not (isinstance(v1, Vector) and isinstance(v2, Vector)):
+def angel_between(v1: Vector2D, v2: Vector2D) -> float:
+    if not (isinstance(v1, Vector2D) and isinstance(v2, Vector2D)):
         raise TypeError("Arguments must be an instance of Vector")
     return math.acos(dot_product(v1, v2) / (v1.length() * v2.length()))

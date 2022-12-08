@@ -15,7 +15,10 @@ class Reader:
                  address: str):
         self._first_name = first_name
         self._last_name = last_name
-        self._phone_number = phone_number
+        if valid_phone_number(phone_number):
+            self._phone_number = phone_number
+        else:
+            raise ValueError("Phone number isn't correct")
         self._address = address
 
     @property

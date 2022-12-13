@@ -1,20 +1,39 @@
 import re
 
+import re
+import sys
 
-def check_isbn(isbn):
-    check_digit = int(isbn[-1])
-    match = re.search(r'(\d)-(\d{3})-(\d{5})', isbn[:-1])
+# `regex` checks for ISBN-10 or ISBN-13 format
 
-    if not match:
+
+def check_isbn(isbn: str):
+    regex = re.compile(r"^(?:ISBN(?:-1[03])?:? )?(?=[-0-9 ]{17}$|[-0-9X ]{13}$|[0-9X]"
+                       r"{10}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?(?:[0-9]+[- ]?){2}[0-9X]$")
+    if regex.search(isbn):
+        chars = list(re.sub("[^0-9X]", "", isbn)    )
+        last = chars.pop()
+
+        if len(chars) == 9:
+            # Compute the ISBN-10 check digit
+            val = sum((x + 2) * int(y) for x, y in enumerate(reversed(chars)))
+            check = 11 - (val % 11)
+            if check == 10:
+                check = "X"
+            elif check == 11:
+                check = "0"
+        else:
+            # Compute the ISBN-13 check digit
+            val = sum((x % 2 * 2 + 1) * int(y) for x, y in enumerate(chars))
+            check = 10 - (val % 10)
+            if check == 10:
+                check = "0"
+
+        if str(check) == last:
+            return True
+        else:
+            return False
+    else:
         return False
-
-    digits = match.group(1) + match.group(2) + match.group(3)
-    result = 0
-
-    for i, digit in enumerate(digits):
-      result += (i + 1) * int(digit)
-
-    return True if (result % 11) == check_digit else False
 
 
 class Book:
@@ -28,30 +47,6 @@ class Book:
             raise ValueError("ISBN number isn't correct")
 
     @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, name: str):
-        self._name = name
-
-    @property
-    def description(self):
-        return self._description
-
-    @description.setter
-    def description(self, description: str):
-        self._description = description
-
-    @property
-    def publishing(self):
-        return self._publishing
-
-    @publishing.setter
-    def publishing(self, publishing: str):
-        self._publishing = publishing
-
-    @property
     def isbn_number(self):
         return self._isbn_number
 
@@ -61,3 +56,8 @@ class Book:
             self._isbn_number = isbn_number
         else:
             raise ValueError("ISBN number isn't correct")
+
+    def __str__(self) -> str:
+        return f"Name: {self._name}, Description: {self._description}," \
+               f" Publishing: {self._publishing}, ISBN number: {self._isbn_number}"
+

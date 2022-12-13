@@ -44,7 +44,6 @@ CardSchema = Schema({
 
 CardManagerSchema = Schema({
     "cards": f.List(f.Object(CardSchema), binding="_CardManager__cards"),
-    #"freeBooks": f.Dict(binding="_CardManager__free_books", )
     "freeBooksKeys": f.List(f.Object(BookSchema), binding="_CardManager__free_books_keys"),
     "freeBooksValues": f.List(f.Int(), binding="_CardManager__free_books_values")
 })
@@ -69,9 +68,14 @@ file = open("output.json", "r")
 
 card_manager_dict = json.load(file)
 
-card_manager: CardManager = mapper.load(card_manager_dict, CardManagerSchema)
-card_manager.print_cards()
-card_manager.print_books()
+other_card_manager: CardManager = mapper.load(card_manager_dict, CardManagerSchema)
+
+card_manager.backup()
+
+other_card_manager.print_cards()
+other_card_manager.print_books()
+
+file.close()
 
 
 

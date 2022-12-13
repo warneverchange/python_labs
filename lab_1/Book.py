@@ -58,6 +58,6 @@ class Book:
             raise ValueError("ISBN number isn't correct")
 
     def __str__(self) -> str:
-        return f"Name: {self._name}, Description: {self._description}," \
-               f" Publishing: {self._publishing}, ISBN number: {self._isbn_number}"
+        return f"(Name: {self._name}, Description: {self._description}," \
+               f" Publishing: {self._publishing}, ISBN number: {self._isbn_number})"
 

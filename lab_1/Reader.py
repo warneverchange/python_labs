@@ -33,10 +33,10 @@ class Reader:
             raise ValueError("Phone number isn't correct")
 
     def __str__(self):
-        return f"First name: {self.first_name}\n" \
-               f"Last name: {self.last_name}\n" \
-               f"Phone number: {self.phone_number}\n" \
-               f"Address: {self.address}\n"
+        return f"(First name: {self.first_name}" \
+               f"Last name: {self.last_name}" \
+               f"Phone number: {self.phone_number}" \
+               f"Address: {self.address})"
 
     def __eq__(self, other):
         if isinstance(other, Reader):

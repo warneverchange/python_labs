@@ -56,5 +56,4 @@ class CardManager:
 
     def print_cards(self, indent=0):
         for card in self.__cards:
-
             print('\t' * indent + card.__str__())

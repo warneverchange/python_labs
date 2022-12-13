@@ -21,10 +21,10 @@ class Card:
             raise TypeError()
 
     def __str__(self):
-        result = "Card: \n"
+        result = "Card: ("
         for card_item in self.taken_books:
-            result += "Card Item: \n\n"
-            result += f"Reader: \n{self.reader.__str__()}\n"
-            result += f"Books: \n"
-            result += card_item.__str__()
+            result += "Card Item: ("
+            result += f"Reader: {self.reader.__str__()})"
+            result += f"Books: ("
+            result += f"{card_item.__str__()}))"
         return result

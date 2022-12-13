@@ -5,10 +5,7 @@ from Book import Book
 
 class CardManager:
     __cards: list = []
-
     __free_books: dict = {}
-
-
     __free_books_keys: list = []
     __free_books_values: list = []
 

@@ -40,9 +40,6 @@ class CardManager:
                 self.__free_books[book] -= quantity
                 break
 
-    def return_book(self, isbn_number: str, card: Card):
-        pass
-
     def get_cards(self) -> list:
         return self.__cards
 

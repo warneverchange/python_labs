@@ -1,5 +1,8 @@
 from typing import Any
 
+#Зачтено
+
+
 from CardManager import CardManager
 from Reader import Reader
 from Book import Book
